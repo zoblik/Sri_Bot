@@ -13,7 +13,6 @@ import json
 
 import threading
 
-from models import *
 
 from strategies import TechnicalStrategy, BreakoutStrategy
 
@@ -49,7 +48,7 @@ class BinanceFuturesClient:
         t = threading.Thread(target=self._start_ws)
         t.start()
 
-        logger.info("Binance Futures Client successfully initialized")
+        logger.info("Initialized Compleate")
 
     def _add_log(self, msg: str):
         logger.info("%s", msg)
@@ -212,7 +211,7 @@ class BinanceFuturesClient:
             time.sleep(2)
 
     def _on_open(self, ws):
-        logger.info("Binance connection opened")
+        logger.info("Connection opened")
 
         self.subscribe_channel(list(self.contracts.values()), "bookTicker")
         self.subscribe_channel(list(self.contracts.values()), "aggTrade")
@@ -221,7 +220,7 @@ class BinanceFuturesClient:
         logger.warning("Binance Websocket connection closed")
 
     def _on_error(self, ws, msg: str):
-        logger.error("Binance connection error: %s", msg)
+        logger.error("Connection error: %s", msg)
 
     def _on_message(self, ws, msg: str):
 
@@ -292,7 +291,7 @@ class BinanceFuturesClient:
 
         trade_size = round(round(trade_size / contract.lot_size) * contract.lot_size, 8)
 
-        logger.info("Binance Futures current USDT balance = %s, trade size = %s", balance, trade_size)
+        logger.info("Current USDT balance = %s, trade size = %s", balance, trade_size)
 
         return trade_size
 
